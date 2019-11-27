@@ -24,44 +24,44 @@ do_install_bazel() {
 
 def bazel_get_flags(d):
     flags = ""
-    for i in d.getVar("CC").split()[1:]:
+    for i in d.getVar("CC",True).split()[1:]:
         flags += "--conlyopt=%s --cxxopt=%s --linkopt=%s " % (i, i, i)
 
-    for i in d.getVar("CFLAGS").split():
+    for i in d.getVar("CFLAGS",True).split():
         if i == "-g":
             continue
         flags += "--conlyopt=%s " % i
 
-    for i in d.getVar("BUILD_CFLAGS").split():
+    for i in d.getVar("BUILD_CFLAGS",True).split():
         flags += "--host_conlyopt=%s " % i
 
-    for i in d.getVar("CXXFLAGS").split():
+    for i in d.getVar("CXXFLAGS",True).split():
         if i == "-g":
             continue
         flags += "--cxxopt=%s " % i
 
-    for i in d.getVar("BUILD_CXXFLAGS").split():
+    for i in d.getVar("BUILD_CXXFLAGS",True).split():
         flags += "--host_cxxopt=%s " % i
 
-    for i in d.getVar("CPPFLAGS").split():
+    for i in d.getVar("CPPFLAGS",True).split():
         if i == "-g":
             continue
         flags += "--conlyopt=%s --cxxopt=%s " % (i, i)
 
-    for i in d.getVar("BUILD_CPPFLAGS").split():
+    for i in d.getVar("BUILD_CPPFLAGS",True).split():
         flags += "--host_conlyopt=%s --host_cxxopt=%s " % (i, i)
 
-    for i in d.getVar("LDFLAGS").split():
+    for i in d.getVar("LDFLAGS",True).split():
         if i == "-Wl,--as-needed":
             continue
         flags += "--linkopt=%s " % i
 
-    for i in d.getVar("BUILD_LDFLAGS").split():
+    for i in d.getVar("BUILD_LDFLAGS",True).split():
         if i == "-Wl,--as-needed":
             continue
         flags += "--host_linkopt=%s " % i
 
-    for i in d.getVar("TOOLCHAIN_OPTIONS").split():
+    for i in d.getVar("TOOLCHAIN_OPTIONS",True).split():
         if i == "-Wl,--as-needed":
             continue
         flags += "--linkopt=%s " % i

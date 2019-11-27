@@ -24,8 +24,8 @@ inherit native
 INHIBIT_SYSROOT_STRIP = "1"
 
 python __anonymous() {
-    if d.getVar("BUILD_ARCH") != "x86_64":
-        msg =  "\nThe pre-build openjdk-8-native does not support %s host," % d.getVar("BUILD_ARCH")
+    if d.getVar("BUILD_ARCH", True) != "x86_64":
+        msg =  "\nThe pre-build openjdk-8-native does not support %s host," % d.getVar("BUILD_ARCH",True)
         msg += "\nplease use the one in meta-java to replace,"
         msg += "\nadd meta-java to BBLAYERS in conf/bblayers.conf"
         raise bb.parse.SkipPackage(msg)

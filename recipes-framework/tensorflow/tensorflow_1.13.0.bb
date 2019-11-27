@@ -196,11 +196,11 @@ FILES_${PN} += "${libdir}/* ${datadir}/*"
 inherit siteinfo
 UNSUPPORTED_TARGET_ARCH = "powerpc"
 python __anonymous() {
-    target_arch = d.getVar("TARGET_ARCH")
-    if target_arch in d.getVar("UNSUPPORTED_TARGET_ARCH").split():
+    target_arch = d.getVar("TARGET_ARCH", True)
+    if target_arch in d.getVar("UNSUPPORTED_TARGET_ARCH", True).split():
         raise bb.parse.SkipPackage("TensorFlow does not support Target Arch '%s'" % target_arch)
 
-    if d.getVar("SITEINFO_ENDIANNESS") == 'be':
+    if d.getVar("SITEINFO_ENDIANNESS",True) == 'be':
         msg =  "\nIt failed to use pre-build model to do predict/inference on big-endian platform"
         msg += "\n(such as qemumips), since upstream does not support big-endian very well."
         msg += "\nDetails: https://github.com/tensorflow/tensorflow/issues/16364"
